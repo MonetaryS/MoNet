@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = MoNet
-VERSION = 1.0.0.0
+VERSION = 1.1.0.0
 INCLUDEPATH += src src/json src/qt src/qt/plugins/mrichtexteditor
 QT += network printsupport
 DEFINES += ENABLE_WALLET
@@ -152,6 +152,14 @@ QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) cl
     PRE_TARGETDEPS += $$OUT_PWD/build/build.h
     QMAKE_EXTRA_TARGETS += genbuild
     DEFINES += HAVE_BUILD_INFO
+}
+
+contains(DEFINES, USE_NATIVE_I2P) {
+    geni2pbuild.depends = FORCE
+    geni2pbuild.commands = cd $$PWD; /bin/sh share/inc_build_number.sh src/i2pbuild.h bitcoin-qt-build-number
+    geni2pbuild.target = src/i2pbuild.h
+    PRE_TARGETDEPS += src/i2pbuild.h
+    QMAKE_EXTRA_TARGETS += geni2pbuild
 }
 
 contains(USE_O3, 1) {
@@ -442,6 +450,21 @@ FORMS += \
     src/qt/forms/blockbrowser.ui \
     src/qt/forms/tradingdialog.ui \
     src/qt/plugins/mrichtexteditor/mrichtextedit.ui 
+
+contains(DEFINES, USE_NATIVE_I2P) {
+HEADERS += src/i2p.h \
+    src/i2psam.h \
+    src/qt/showi2paddresses.h \
+    src/qt/i2poptionswidget.h
+
+SOURCES += src/i2p.cpp \
+    src/i2psam.cpp \
+    src/qt/showi2paddresses.cpp \
+    src/qt/i2poptionswidget.cpp
+
+FORMS += src/qt/forms/showi2paddresses.ui \
+    src/qt/forms/i2poptionswidget.ui
+}
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
