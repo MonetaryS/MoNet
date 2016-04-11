@@ -35,8 +35,8 @@ tradingDialog::tradingDialog(QWidget *parent) :
 
     ui->BuyCostLabel->setPalette(sample_palette);
     ui->SellCostLabel->setPalette(sample_palette);
-    ui->AMSAvailableLabel->setPalette(sample_palette);
-    ui->AMSAvailableLabel_2->setPalette(sample_palette);
+    ui->MNTAvailableLabel->setPalette(sample_palette);
+    ui->MNTAvailableLabel_2->setPalette(sample_palette);
     ui->BtcAvailableLbl_2->setPalette(sample_palette);
     //Set tabs to inactive
     ui->TradingTabWidget->setTabEnabled(0,false);
@@ -139,7 +139,7 @@ void tradingDialog::InitTrading()
 }
 
 void tradingDialog::UpdaterFunction(){
-    //AMSst get the main exchange info in order to populate qLabels in maindialog. then get data
+    //MNTst get the main exchange info in order to populate qLabels in maindialog. then get data
     //required for the current tab.
 
      int Retval = SetExchangeInfoTextLabels();
@@ -177,7 +177,7 @@ QString tradingDialog::CancelOrder(QString OrderId){
         return Response;
 }
 
-QString tradingDialog::BuyAMS(QString OrderType, double Quantity, double Rate){
+QString tradingDialog::BuyMNT(QString OrderType, double Quantity, double Rate){
 
     QString str = "";
     QString URL = "https://bittrex.com/api/v1.1/market/";
@@ -193,7 +193,7 @@ QString tradingDialog::BuyAMS(QString OrderType, double Quantity, double Rate){
     return Response;
 }
 
-QString tradingDialog::SellAMS(QString OrderType, double Quantity, double Rate){
+QString tradingDialog::SellMNT(QString OrderType, double Quantity, double Rate){
 
     QString str = "";
     QString URL = "https://bittrex.com/api/v1.1/market/";
@@ -448,8 +448,8 @@ void tradingDialog::ParseAndPopulateOrderBookTables(QString OrderBook){
     QJsonArray  BuyArray  = ResultObject.value("buy").toArray();                //get buy/sell object from result object
     QJsonArray  SellArray = ResultObject.value("sell").toArray();               //get buy/sell object from result object
 
-    double AMSSupply = 0;
-    double AMSDemand = 0;
+    double MNTSupply = 0;
+    double MNTDemand = 0;
     double BtcSupply  = 0;
     double BtcDemand  = 0;
 
@@ -463,7 +463,7 @@ void tradingDialog::ParseAndPopulateOrderBookTables(QString OrderBook){
         double y = obj["Quantity"].toDouble();
         double a = (x * y);
 
-        AMSSupply = AMSSupply + y;
+        MNTSupply = MNTSupply + y;
         BtcSupply  = BtcSupply  + a;
 
         AskRows = ui->AsksTable->rowCount();
@@ -485,7 +485,7 @@ void tradingDialog::ParseAndPopulateOrderBookTables(QString OrderBook){
         double y = obj["Quantity"].toDouble();
         double a = (x * y);
 
-        AMSDemand = AMSDemand + y;
+        MNTDemand = MNTDemand + y;
         BtcDemand  = BtcDemand  + a;
 
         BidRows = ui->BidsTable->rowCount();
@@ -496,12 +496,12 @@ void tradingDialog::ParseAndPopulateOrderBookTables(QString OrderBook){
         BuyItteration++;
      }
 
-        ui->AMSSupply->setText("<b>Supply:</b> <span style='font-weight:bold; font-size:14px; color:blue'>" + str.number(AMSSupply,'i',8) + "</span><b> MNT</b>");
+        ui->MNTSupply->setText("<b>Supply:</b> <span style='font-weight:bold; font-size:14px; color:blue'>" + str.number(MNTSupply,'i',8) + "</span><b> MNT</b>");
         ui->BtcSupply->setText("<span style='font-weight:bold; font-size:14px; color:blue'>" + str.number(BtcSupply,'i',8) + "</span><b> BTC</b>");
         ui->AsksCount->setText("<b>Ask's :</b> <span style='font-weight:bold; font-size:14px; color:blue'>" + str.number(ui->AsksTable->rowCount()) + "</span>");
 
 
-        ui->AMSDemand->setText("<b>Demand:</b> <span style='font-weight:bold; font-size:14px; color:blue'>" + str.number(AMSDemand,'i',8) + "</span><b> MNT</b>");
+        ui->MNTDemand->setText("<b>Demand:</b> <span style='font-weight:bold; font-size:14px; color:blue'>" + str.number(MNTDemand,'i',8) + "</span><b> MNT</b>");
         ui->BtcDemand->setText("<span style='font-weight:bold; font-size:14px; color:blue'>" + str.number(BtcDemand,'i',8) + "</span><b> BTC</b>");
         ui->BidsCount->setText("<b>Bid's :</b> <span style='font-weight:bold; font-size:14px; color:blue'>" + str.number(ui->BidsTable->rowCount()) + "</span>");
   obj.empty();
@@ -567,7 +567,7 @@ void tradingDialog::ActionsOnSwitch(int index = -1){
                                        QString str;
                                        QJsonObject ResultObject =  GetResultObjectFromJSONObject(balance);
 
-                                       ui->AMSAvailableLabel->setText(str.number(ResultObject["Available"].toDouble(),'i',8));
+                                       ui->MNTAvailableLabel->setText(str.number(ResultObject["Available"].toDouble(),'i',8));
                                      }
 
                 break;
@@ -611,7 +611,7 @@ void tradingDialog::ActionsOnSwitch(int index = -1){
                          Response = GetBalance("MNT");
 
                        if(Response.size() > 0 && Response != "Error"){
-                         DisplayBalance(*ui->AMSBalanceLabel,*ui->AMSAvailableLabel_2,*ui->AMSPendingLabel, QString::fromUtf8("MNT"),Response);
+                         DisplayBalance(*ui->MNTBalanceLabel,*ui->MNTAvailableLabel_2,*ui->MNTPendingLabel, QString::fromUtf8("MNT"),Response);
                         }
                 break;
 
@@ -702,7 +702,7 @@ void tradingDialog::CalculateBuyCostLabel(){
 void tradingDialog::CalculateSellCostLabel(){
 
     double price    = ui->SellBidPriceEdit->text().toDouble();
-    double Quantity = ui->UnitsInputAMS->text().toDouble();
+    double Quantity = ui->UnitsInputMNT->text().toDouble();
     double cost = ((price * Quantity) - ((price * Quantity / 100) * 0.25));
 
     QString Str = "";
@@ -749,9 +749,9 @@ void tradingDialog::on_Sell_Max_Amount_clicked()
     QString str;
     QJsonObject ResultObject =  GetResultObjectFromJSONObject(responseA);
 
-    double AvailableAMS = ResultObject["Available"].toDouble();
+    double AvailableMNT = ResultObject["Available"].toDouble();
 
-    ui->UnitsInputAMS->setText(str.number(AvailableAMS,'i',8));
+    ui->UnitsInputMNT->setText(str.number(AvailableMNT,'i',8));
 }
 
 void tradingDialog::on_Buy_Max_Amount_clicked()
@@ -901,7 +901,7 @@ void tradingDialog::on_BuyTX_clicked()
 
             if (reply == QMessageBox::Yes) {
 
-                QString Response =  BuyAMS(Order,Quantity,Rate);
+                QString Response =  BuyMNT(Order,Quantity,Rate);
 
                 QJsonDocument jsonResponse = QJsonDocument::fromJson(Response.toUtf8());          //get json from str.
                 QJsonObject  ResponseObject = jsonResponse.object();                              //get json obj
@@ -919,13 +919,13 @@ void tradingDialog::on_BuyTX_clicked()
                  }
 }
 
-void tradingDialog::on_SellAMSBTN_clicked()
+void tradingDialog::on_SellMNTBTN_clicked()
 {
     double Rate;
     double Quantity;
 
     Rate     = ui->SellBidPriceEdit->text().toDouble();
-    Quantity = ui->UnitsInputAMS->text().toDouble();
+    Quantity = ui->UnitsInputMNT->text().toDouble();
 
     QString OrderType = ui->SellOrdertypeCombo->currentText();
     QString Order;
@@ -933,7 +933,7 @@ void tradingDialog::on_SellAMSBTN_clicked()
     if(OrderType == "Limit"){Order = "selllimit";}else if (OrderType == "Market"){ Order = "sellmarket";}
 
     QString Msg = "Are you sure you want to Sell ";
-            Msg += ui->UnitsInputAMS->text();
+            Msg += ui->UnitsInputMNT->text();
             Msg += " MNT @ ";
             Msg += ui->SellBidPriceEdit->text();
             Msg += " BTC Each";
@@ -943,7 +943,7 @@ void tradingDialog::on_SellAMSBTN_clicked()
 
             if (reply == QMessageBox::Yes) {
 
-            QString Response =  SellAMS(Order,Quantity,Rate);
+            QString Response =  SellMNT(Order,Quantity,Rate);
             QJsonDocument jsonResponse = QJsonDocument::fromJson(Response.toUtf8());          //get json from str.
             QJsonObject  ResponseObject = jsonResponse.object();                              //get json obj
 

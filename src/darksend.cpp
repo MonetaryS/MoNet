@@ -770,7 +770,7 @@ void CDarkSendPool::ChargeRandomFees(){
                 with using it to stop abuse. Otherwise it could serve as an attack vector and
                 allow endless transaction that would bloat MoNet and make it unusable. To
                 stop these kinds of attacks 1 in 50 successful transactions are charged. This
-                adds up to a cost of 0.002AMS per transaction on average.
+                adds up to a cost of 0.002MNT per transaction on average.
             */
             if(r <= 20)
             {
@@ -1851,10 +1851,10 @@ bool CDarkSendPool::IsCompatibleWithSession(int64_t nDenom, CTransaction txColla
 void CDarkSendPool::GetDenominationsToString(int nDenom, std::string& strDenom){
     // Function returns as follows:
     //
-    // bit 0 - 100AMS+1 ( bit on if present )
-    // bit 1 - 10AMS+1
-    // bit 2 - 1AMS+1
-    // bit 3 - .1AMS+1
+    // bit 0 - 100MNT+1 ( bit on if present )
+    // bit 1 - 10MNT+1
+    // bit 2 - 1MNT+1
+    // bit 3 - .1MNT+1
     // bit 3 - non-denom
 
 
@@ -1910,10 +1910,10 @@ int CDarkSendPool::GetDenominations(const std::vector<CTxOut>& vout){
 
     // Function returns as follows:
     //
-    // bit 0 - 100AMS+1 ( bit on if present )
-    // bit 1 - 10AMS+1
-    // bit 2 - 1AMS+1
-    // bit 3 - .1AMS+1
+    // bit 0 - 100MNT+1 ( bit on if present )
+    // bit 1 - 10MNT+1
+    // bit 2 - 1MNT+1
+    // bit 3 - .1MNT+1
 
     return denom;
 }

@@ -44,7 +44,7 @@
     <attribute name="title">
      <string>Buy</string>
     </attribute>
-    <widget class="QPushButton" name="BuyAMS">
+    <widget class="QPushButton" name="BuyMNT">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1299,7 +1299,7 @@
       <string>MNT</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="UnitsInputAMS">
+    <widget class="QLineEdit" name="UnitsInputMNT">
      <property name="geometry">
       <rect>
        <x>330</x>
@@ -1333,7 +1333,7 @@
       </font>
      </property>
     </widget>
-    <widget class="QPushButton" name="SellAMSBTN">
+    <widget class="QPushButton" name="SellMNTBTN">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1370,7 +1370,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="AMSAvailableLabel">
+       <widget class="QLabel" name="MNTAvailableLabel">
         <property name="palette">
          <palette>
           <active>
@@ -1801,7 +1801,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="labelAMS">
+       <widget class="QLabel" name="labelMNT">
         <property name="font">
          <font>
           <weight>75</weight>
@@ -2352,7 +2352,7 @@
       <string>Asks</string>
      </property>
     </widget>
-    <widget class="QLabel" name="AMSSupply">
+    <widget class="QLabel" name="MNTSupply">
      <property name="geometry">
       <rect>
        <x>570</x>
@@ -2368,7 +2368,7 @@
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="AMSDemand">
+    <widget class="QLabel" name="MNTDemand">
      <property name="geometry">
       <rect>
        <x>160</x>
@@ -2508,7 +2508,7 @@
       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
      </property>
     </widget>
-    <widget class="QLabel" name="AMSBalanceLabel">
+    <widget class="QLabel" name="MNTBalanceLabel">
      <property name="geometry">
       <rect>
        <x>120</x>
@@ -2562,7 +2562,7 @@
       <string>BTC Balance:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="AMSAvailableLabel_2">
+    <widget class="QLabel" name="MNTAvailableLabel_2">
      <property name="geometry">
       <rect>
        <x>120</x>
@@ -2616,7 +2616,7 @@
       <string>MNT Pending:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="AMSPendingLabel">
+    <widget class="QLabel" name="MNTPendingLabel">
      <property name="geometry">
       <rect>
        <x>120</x>
@@ -2830,9 +2830,9 @@
     <zorder>label_13</zorder>
     <zorder>label_11</zorder>
     <zorder>BitcoinBalanceLabel</zorder>
-    <zorder>AMSBalanceLabel</zorder>
-    <zorder>AMSAvailableLabel_2</zorder>
-    <zorder>AMSPendingLabel</zorder>
+    <zorder>MNTBalanceLabel</zorder>
+    <zorder>MNTAvailableLabel_2</zorder>
+    <zorder>MNTPendingLabel</zorder>
     <zorder>BitcoinAvailableLabel</zorder>
     <zorder>BitcoinPendingLabel</zorder>
     <zorder>label_33</zorder>
